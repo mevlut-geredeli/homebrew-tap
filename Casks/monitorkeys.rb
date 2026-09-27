@@ -1,0 +1,34 @@
+cask "monitorkeys" do
+  version "1.0.0"
+  sha256 "f1df79448e96aa8a6dd89a000b25a11a21500140c8680c38fcedc1894227c168"
+
+  url "https://github.com/mevlut-geredeli/MonitorKeys/archive/refs/tags/v#{version}.tar.gz"
+  name "MonitorKeys"
+  desc "Keyboard volume keys for HDMI and DisplayPort monitors on Apple Silicon"
+  homepage "https://github.com/mevlut-geredeli/MonitorKeys"
+
+  depends_on arch: :arm64
+  depends_on macos: ">= :sonoma"
+
+  # Built from source on your Mac with the Xcode Command Line Tools.
+  preflight do
+    system_command "/bin/sh", args: ["build.sh"],
+                   chdir: "#{staged_path}/MonitorKeys-#{version}", print_stderr: true
+  end
+
+  app "MonitorKeys-#{version}/build/MonitorKeys.app"
+
+  uninstall quit:       "com.mevlutgeredeli.MonitorKeys",
+            login_item: "MonitorKeys"
+
+  zap trash: "~/Library/Preferences/com.mevlutgeredeli.MonitorKeys.plist"
+
+  caveats <<~EOS
+    MonitorKeys needs two one-time permissions: allow the system audio prompt on
+    first launch, then use the menu bar item -> "Enable Keyboard Control..." to
+    grant Accessibility.
+
+    To keep those permissions across upgrades, create a local signing identity once:
+      curl -fsSL https://raw.githubusercontent.com/mevlut-geredeli/MonitorKeys/main/scripts/make-signing-identity.sh | sh
+  EOS
+end
