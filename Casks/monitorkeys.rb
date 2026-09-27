@@ -8,7 +8,7 @@ cask "monitorkeys" do
   homepage "https://github.com/mevlut-geredeli/MonitorKeys"
 
   depends_on arch: :arm64
-  depends_on macos: ">= :sonoma"
+  depends_on macos: :sonoma
 
   # Built from source on your Mac with the Xcode Command Line Tools.
   preflight_steps do
