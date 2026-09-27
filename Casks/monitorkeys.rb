@@ -1,6 +1,6 @@
 cask "monitorkeys" do
   version "1.0.0"
-  sha256 "f1df79448e96aa8a6dd89a000b25a11a21500140c8680c38fcedc1894227c168"
+  sha256 "e547e2719c0748785a2c3830ab44c68f6bfe616e277069f9d25268b4f6644e56"
 
   url "https://github.com/mevlut-geredeli/MonitorKeys/archive/refs/tags/v#{version}.tar.gz"
   name "MonitorKeys"
