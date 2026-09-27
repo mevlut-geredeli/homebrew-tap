@@ -11,9 +11,8 @@ cask "monitorkeys" do
   depends_on macos: ">= :sonoma"
 
   # Built from source on your Mac with the Xcode Command Line Tools.
-  preflight do
-    system_command "/bin/sh", args: ["build.sh"],
-                   chdir: "#{staged_path}/MonitorKeys-#{version}", print_stderr: true
+  preflight_steps do
+    run "/bin/sh", args: ["build.sh"], chdir: "{{staged_path}}/MonitorKeys-{{version}}"
   end
 
   app "MonitorKeys-#{version}/build/MonitorKeys.app"
