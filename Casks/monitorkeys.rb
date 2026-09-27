@@ -27,7 +27,10 @@ cask "monitorkeys" do
     first launch, then use the menu bar item -> "Enable Keyboard Control..." to
     grant Accessibility.
 
-    To keep those permissions across upgrades, create a local signing identity once:
+    Homebrew builds are ad-hoc signed, so macOS asks for the Accessibility
+    permission again after every `brew upgrade`. To avoid that, create a local
+    signing identity once and re-sign the app after each upgrade:
       curl -fsSL https://raw.githubusercontent.com/mevlut-geredeli/MonitorKeys/main/scripts/make-signing-identity.sh | sh
+      codesign --force --sign "MonitorKeys Local Signing" /Applications/MonitorKeys.app
   EOS
 end
